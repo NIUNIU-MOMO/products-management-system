@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfy.management.mapper.MaintenanceMapper">
+
+    <!--<select id="selectMeterNoCount" resultType="int">
+        select count(1) from T_METERNO
+    </select>
+
+    <select id="selectErrValueCount" resultType="int">
+        select count(1) from T_ERRVALUETEST
+    </select>
+
+    <select id="selectAutoErrValueCount" resultType="int">
+        select count(1) from T_AUTOERRVALUETEST
+    </select>
+
+    <select id="selectTempDataV1Count" resultType="int">
+        select count(1) from T_TEMPTESTDATAV1
+    </select>
+
+    <select id="selectTempDataV2Count" resultType="int">
+        select count(1) from T_TEMPTESTDATAV2
+    </select>
+
+    <select id="selectMeterInformationCount" resultType="int">
+        select count(1) from T_METERINFORMATION
+    </select>
+
+    <select id="selecterrValueAnalyseCount" resultType="int">
+        select count(1) from T_TESTERRVALUEANALYSE
+    </select>
+
+    <select id="selectProductCount" resultType="int">
+         select count(1) from T_PRODUCTTEST
+    </select>-->
+
+    <select id="selectSavedRecordsByTableName" resultType="int">
+        select count(1) from ${tableName} where data_status = 1
+    </select>
+
+    <select id="selectUnSavedRecordsByTableName" resultType="int">
+        select count(1) from ${tableName} where data_status = 0
+    </select>
+
+    <select id="selectTableCountByTableName" resultType="int">
+        select count(1) from ${tableName}
+    </select>
+
+
+</mapper>

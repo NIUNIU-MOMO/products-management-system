@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfy.management.mapper.LoginAndQuitMapper">
+
+    <select id="selectUserByNameAndPassword" resultType="com.lfy.management.pojo.SystemUser" parameterType="String">
+        select * from t_systemuser where user_name = #{name} and user_password = #{password}
+    </select>
+
+</mapper>

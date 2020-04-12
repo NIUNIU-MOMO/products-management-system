@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfy.management.mapper.AJAXMapper">
+
+    <select id="insertMeterInformationByMeterNo"  statementType="CALLABLE" parameterType="String">
+        {call Meter_Information(#{meterNo})}
+    </select>
+
+    <select id="selectMeterInformationByMeterNo" parameterType="String" resultType="com.lfy.management.entity.MeterInformation">
+        select * from t_meterInformation where meter_no =#{meterNo}
+    </select>
+
+    <select id="insertMeterInformationByMeterNoFile" statementType="CALLABLE">
+        {call Products_Information}
+    </select>
+
+    <select id="selectMeterInformationByMeterNoFile" resultType="com.lfy.management.entity.MeterInformation" parameterType="Map">
+        select * from
+        (select t1.*,rownum rn from
+        (select * from t_meterInformation
+        <where>
+            <if test="words!=null">
+                words like #{words,jdbcType=VARCHAR}
+            </if>
+        </where>
+        ) t1
+        where rownum &lt;= #{currentPage,jdbcType=INTEGER}*#{pageSize,jdbcType=INTEGER}
+        )
+        where rn &gt; (#{currentPage,jdbcType=INTEGER}-1)*#{pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectMeterInformationCount" resultType="int">
+        select count(*) from t_meterinformation
+    </select>
+
+    <select id="executeErrValueAnalysev1" statementType="CALLABLE">
+        {call errvalue_analysev1}
+    </select>
+
+    <select id="executeErrValueAnalysev2" statementType="CALLABLE">
+        {call errvalue_analysev2}
+    </select>
+
+    <select id="executeOtherTestDataDeal" statementType="CALLABLE">
+        {call othertestdata_deal}
+    </select>
+
+    <select id="selectTestErrValueAnalyse" parameterType="Map" resultType="com.lfy.management.entity.TestErrValueAnalyse">
+        select * from
+        (select t1.*,rownum rn from
+        (select * from t_testerrvalueanalyse
+        <where>
+            <if test="words!=null">
+                words like #{words,jdbcType=VARCHAR}
+            </if>
+        </where>
+        ) t1
+        where rownum &lt;= #{currentPage,jdbcType=INTEGER}*#{pageSize,jdbcType=INTEGER}
+        )
+        where rn &gt; (#{currentPage,jdbcType=INTEGER}-1)*#{pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectTestErrValueAnalyseCount" resultType="int">
+        select count(*) from t_testerrvalueanalyse
+    </select>
+
+    <delete id="delRecentRecordByTableName" >
+        delete from ${tableName} where insert_id in (select max(insert_id) as insert_id from t_inserttablerecord where table_name = #{tableName}) and data_status = 0
+    </delete>
+
+    <select id="selectCountByTableName" resultType="int">
+        select count(1) from ${tableName}
+    </select>
+
+    <delete id="truncateTableByTableName">
+        truncate table ${tableName}
+    </delete>
+
+    <update id="saveRecordByTableName" >
+        update ${tableName} set data_status = 1 where data_status = 0
+    </update>
+
+    <delete id="clearRecordByTableName">
+        delete from ${tableName} where data_status = 0
+    </delete>
+
+    <select id="selectSavedItemsByTableName" resultType="int">
+        select count(1) from ${tableName} where data_status = 1
+    </select>
+
+    <select id="selectUnSavedItemsByTableName" resultType="int">
+        select count(1) from ${tableName} where data_status = 0
+    </select>
+
+    <select id="selectAllMeterInformation" resultType="com.lfy.management.entity.MeterInformation">
+        select * from t_meterInformation
+    </select>
+
+    <select id="selectAllTestErrValueAnalyse" resultType="com.lfy.management.entity.TestErrValueAnalyse">
+        select * from t_testerrvalueanalyse
+    </select>
+
+
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfy.management.mapper.InformationQueryMapper">
+
+    <select id="selectCountMeterNo" resultType="int">
+        select count(*) from t_meterno
+    </select>
+    <select id="selectCountTempTestDataV1" resultType="int">
+        select count(*) from t_temptestdatav1
+    </select>
+    <select id="selectCountTempTestDataV2" resultType="int">
+        select count(*) from t_temptestdatav2
+    </select>
+
+
+</mapper>

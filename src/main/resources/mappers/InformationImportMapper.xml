@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfy.management.mapper.InformationImportMapper">
+
+    <insert id="insertMeterNo" parameterType="com.lfy.management.entity.MeterNo">
+        insert into t_meterNo(METER_NO) values(#{meterNo})
+    </insert>
+
+    <insert id="insertTableRecordByTableName">
+        insert into t_inserttablerecord(table_name) values(#{tableName})
+    </insert>
+
+    <update id="updateInsertIDByTableName">
+        update ${tableName}
+   set INSERT_ID =
+       (select max(insert_id) as insert_id
+          from t_inserttablerecord
+         where table_name = #{tableName})
+ where INSERT_ID is null
+    </update>
+
+    <insert id="insertErrValueTest" parameterType="com.lfy.management.entity.ErrValueTest">
+        insert into t_ErrValueTest values (1,#{testNo},#{benchNo},#{certificateNo},#{meterNo},#{insideTightnessNo},
+            #{QmaxValue},#{QmidValue},#{QminValue},#{printWheel},#{direction},#{tightnessResult},#{pressureLoss},
+            #{pressurelossResult},#{finallyResult},#{linearResult},#{repetitiveResult},#{atmosphericPressure},#{testTime},
+            #{meterOrder},#{models},#{defect},#{temperature},#{relativeHumidity},#{qualityInspector},#{Manufacturer},#{remarks},null,0)
+    </insert>
+
+    <insert id="insertAutoErrValueTest" parameterType="com.lfy.management.entity.AutoErrValueTest">
+        insert into t_autoerrvaluetest values (1,#{firstorSecond},#{equipNum},#{stationNum},#{transTime},#{serialNum},#{flowPoint},#{times},
+            #{flowVolumn},#{errorValue},#{pressureLossValue},#{atmosphericPressure},#{temperature},#{relativeHumidity},#{diffValue},
+            #{startTime},#{endTime},#{testNo},null,0)
+    </insert>
+
+    <insert id="insertProductTest" parameterType="com.lfy.management.entity.ProductTest">
+        insert into t_producttest values (1,#{testNo},#{meterNo},#{models},#{meterVersion},#{importAmount},#{initialValue},
+            #{terminalValue},#{errorValue},#{voltage},#{outage},#{controlValve},#{remains},#{IC},#{dataMemories},#{controlLongdistance},
+            #{finallyResult},#{commDescribe},#{unqualifiedDescribe},#{qualityInspector},#{testTime},#{direction},#{IMEI},#{SIM},#{remarks},null,0)
+    </insert>
+
+    <insert id="insertTempTestDataV1" parameterType="com.lfy.management.entity.TempTestDataV1">
+        insert into t_temptestdatav1 values (#{meterNo},#{qmaxValue},#{qmidValue},#{qminValue},null)
+    </insert>
+
+    <insert id="insertTempTestDataV2" parameterType="com.lfy.management.entity.TempTestDataV2">
+        insert into t_temptestdatav2 values (#{meterNo},#{testPoint},#{errValue},null)
+    </insert>
+
+</mapper>
